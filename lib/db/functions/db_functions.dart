@@ -25,6 +25,7 @@ Future<StudentModel> addStudent(StudentModel value) async {
   await _db.rawInsert(
       'INSERT INTO student (name,age,clas,roll,image) VALUES (?,?,?,?,?)',
       [value.name, value.age, value.clas, value.roll, value.image]);
+      
   getAllStudents();
   //studentListNotifier.value.add(value);
   // print({value.id, value.name});
@@ -44,6 +45,7 @@ Future<dynamic> getAllStudents() async {
     studentListNotifier.value.add(student);
     studentListNotifier.notifyListeners();
   });
+  return _values;
   //studentListNotifier.value.addAll(studentDB.values);
 }
 
@@ -53,6 +55,7 @@ Future<void> deleteStudent(int id) async {
   await _db.rawDelete('DELETE FROM student WHERE id = ?', [id]);
   //await _db.close();
   getAllStudents();
+  
 }
 
 Future<void> editStudent(int id, String name, String age, String clas,
@@ -76,4 +79,14 @@ Future<void> editStudent(int id, String name, String age, String clas,
   studentListNotifier.notifyListeners();
   //await _db.close();
   getAllStudents();
+}
+
+searchStudent(String text) async {
+  final _values = await _db.rawQuery('SELECT * FROM student');
+  print(text);
+
+  List<Map> res =
+      await _db.query("student", where: "name LIKE ?", whereArgs: ['%$text%']);
+  print(res);
+  return res;
 }

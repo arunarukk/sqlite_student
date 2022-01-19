@@ -39,30 +39,9 @@ class _AddStudentState extends State<AddStudent> {
 
   dynamic imageTemporary = '';
 
-  // void _refreshStudents() async {
-  //   try {
-  //     getAllStudents().then((value) {
-  //       setState(() {
-  //         _students = value;
-  //         searchItems = value;
-  //         isLoading = false;
-  //       });
-  //     });
-  //   } catch (err) {
-  //     print("Exception caught: $err");
-  //   }
-  // }
-
   initEditButton(final data) async {
     print("inside initEdit$data");
 
-    //print(values.name);
-    // getAllStudents().then((data) {
-    //   print(data.toList());
-
-    // final data = id.toString();
-    // final value = StudentModel.fromMap(id);
-    // print(value);
     setState(() {
       _nameController.text = data.name;
       _ageController.text = data.age;
@@ -104,6 +83,10 @@ class _AddStudentState extends State<AddStudent> {
                   ),
                   TextFormField(
                     controller: _ageController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Age',
@@ -114,6 +97,10 @@ class _AddStudentState extends State<AddStudent> {
                   ),
                   TextFormField(
                     controller: _classController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Class',
@@ -124,6 +111,10 @@ class _AddStudentState extends State<AddStudent> {
                   ),
                   TextFormField(
                     controller: _rollController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Roll-No',
