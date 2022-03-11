@@ -51,12 +51,14 @@ class _ScreenHomeState extends State<ScreenHome> {
         }
       }
       setState(() {
+        //_refreshStudents();
         searchItems = [];
         searchItems.addAll(studentData);
       });
       return;
     } else {
       setState(() {
+        //_refreshStudents();
         searchItems = [];
         searchItems = _students;
       });
@@ -92,8 +94,8 @@ class _ScreenHomeState extends State<ScreenHome> {
 
   @override
   Widget build(BuildContext context) {
-    getAllStudents();
-    _refreshStudents();
+    //getAllStudents();
+    //_refreshStudents();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Students'),
@@ -107,10 +109,10 @@ class _ScreenHomeState extends State<ScreenHome> {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   child: ListTile(
-                    leading: Icon(Icons.search),
+                    leading: const Icon(Icons.search),
                     title: TextField(
                       controller: controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           hintText: 'Search', border: InputBorder.none),
                       onChanged: (String text) {
                         // _students = searchStudent(text);
@@ -210,6 +212,7 @@ class _ScreenHomeState extends State<ScreenHome> {
             //     },
             //   ),
             // ),
+
             Container(
               height: 620,
               child: ListView.builder(
@@ -217,7 +220,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   final data = StudentModel.fromMap(searchItems[index]);
                   return Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ListTile(
@@ -241,17 +244,22 @@ class _ScreenHomeState extends State<ScreenHome> {
                             if (data.id != null) {
                               deleteStudent(data.id!);
                               _refreshStudents();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text(
+                                          "Student Deleted successfully")));
                             } else {
                               print('Student_id is null, unable to delete');
                             }
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete,
                             color: Colors.red,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Divider()
@@ -266,18 +274,22 @@ class _ScreenHomeState extends State<ScreenHome> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext ctx) {
-                return AddStudent();
-              });
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(builder: (ctx) {
-          //     return AddStudent();
-          //   }),
-          // );
+          // showDialog(
+          //     context: context,
+          //     builder: (BuildContext ctx) {
+          //       return AddStudent();
+          //     });
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (ctx) {
+              return AddStudent();
+            }),
+          );
+          // Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (ctx) => AddStudent()),
+          //     (route) => false);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

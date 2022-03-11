@@ -56,6 +56,7 @@ Future<void> deleteStudent(int id) async {
   //await _db.close();
   getAllStudents();
   
+  
 }
 
 Future<void> editStudent(int id, String name, String age, String clas,
@@ -81,12 +82,12 @@ Future<void> editStudent(int id, String name, String age, String clas,
   getAllStudents();
 }
 
-searchStudent(String text) async {
-  final _values = await _db.rawQuery('SELECT * FROM student');
-  print(text);
+// searchStudent(String text) async {
+//   final _values = await _db.rawQuery('SELECT * FROM student');
+//   print(text);
 
-  List<Map> res =
-      await _db.query("student", where: "name LIKE ?", whereArgs: ['%$text%']);
-  print(res);
-  return res;
-}
+//   List<Map> res =
+//       await _db.query("student", where: "name LIKE ?", whereArgs: ['%$text%']);
+//   print(res);
+//   return res;
+// }
